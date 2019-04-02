@@ -1,12 +1,10 @@
 #pragma once
 #include <String>
 #include <vector>
-using FString = std::string;
-using int32 = int;
 
 struct FBullCowCount {
-	int32 Bulls = 0;
-	int32 Cows = 0;
+	int Bulls = 0;
+	int Cows = 0;
 };
 enum class EWordStatus {
 	OK,
@@ -22,26 +20,26 @@ enum class EWordStatus {
 class FBullCowGame {
 public:
 	FBullCowGame();
-	int32 GetCurrentTry() const;
-	int32 GetMaxTries() const;
-	FString GetWord() const;
-	bool ContainsDigit(FString) const;
-	bool ContainsNonASCCIChars(FString) const;
-	EWordStatus CheckGuessValidity(FString) const;
+	int GetCurrentTry() const;
+	int GetMaxTries() const;
+	std::string GetWord() const;
+	bool ContainsDigit(std::string) const;
+	bool ContainsNonASCCIChars(std::string) const;
+	EWordStatus CheckGuessValidity(std::string) const;
 	void Reset(); // TODO Make a return value based on reset
-	FBullCowCount SubmitGuess(FString);
-	FString MakeWord(int);
+	FBullCowCount SubmitGuess(std::string);
+	std::string MakeWord(int);
 	
 private:
 	//See contruct for initialization.
-	int32 CurrentTry;
-	int32 MaxTries;
-	int32 WordLength;
-	FString Word;
-	bool IsIsorgram(FString) const;
-	bool IsAllLowerCase(FString) const;
-	bool ConvertDictionaryToIsogramDictionary(FString, FString);
-	std::vector<std::vector<std::string>> MakeVectorFromIsogramFile(FString IFilePath);
+	int CurrentTry;
+	int MaxTries;
+	int WordLength;
+	std::string Word;
+	bool IsIsorgram(std::string) const;
+	bool IsAllLowerCase(std::string) const;
+	bool ConvertDictionaryToIsogramDictionary(std::string, std::string);
+	std::vector<std::vector<std::string>> MakeVectorFromIsogramFile(std::string IFilePath);
 	std::vector<std::vector<std::string>> IsogramLists;
 	std::vector<std::string> GetWordList(int);
 };

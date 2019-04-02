@@ -3,7 +3,7 @@
 #include <string>
 #include "FBullCowGame.h"
 using FText = std::string;
-//using int32 = int;
+//using int = int;
 
 //Prototype/Declar functions.
 FText GetGuess();

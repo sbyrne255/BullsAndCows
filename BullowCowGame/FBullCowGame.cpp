@@ -7,8 +7,6 @@
 #include <vector>
 
 
-using FString = std::string;
-
 FBullCowGame::FBullCowGame() {
 	Reset();
 	//ConvertDictionaryToIsogramDictionary("C:\\Users\\Steven\\Desktop\\dict.txt", "isodict.txt");
@@ -22,15 +20,15 @@ void FBullCowGame::Reset() {
 	WordLength = Word.length();//Initialize after Word variable is set.
 	return;
 }
-int32 FBullCowGame::GetCurrentTry() const	{ return CurrentTry; }
-int32 FBullCowGame::GetMaxTries() const		{ return MaxTries; }
-FString FBullCowGame::GetWord() const		{ return Word; }
-bool FBullCowGame::ContainsDigit(FString input) const { return std::any_of(input.begin(), input.end(), ::isdigit); }
-bool FBullCowGame::ContainsNonASCCIChars(FString input) const { return input.find_first_not_of("abcdefghijklmnopqrstuvwxyz") != std::string::npos; }
+int FBullCowGame::GetCurrentTry() const	{ return CurrentTry; }
+int FBullCowGame::GetMaxTries() const		{ return MaxTries; }
+std::string FBullCowGame::GetWord() const		{ return Word; }
+bool FBullCowGame::ContainsDigit(std::string input) const { return std::any_of(input.begin(), input.end(), ::isdigit); }
+bool FBullCowGame::ContainsNonASCCIChars(std::string input) const { return input.find_first_not_of("abcdefghijklmnopqrstuvwxyz") != std::string::npos; }
 
 
-EWordStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
-	int32 GuessLength = Guess.length();
+EWordStatus FBullCowGame::CheckGuessValidity(std::string Guess) const {
+	int GuessLength = Guess.length();
 	if (GuessLength > WordLength) { return EWordStatus::Input_Length_To_Large; }
 	else if (GuessLength < WordLength) { return EWordStatus::Input_Length_To_Small; }
 	else if (!IsIsorgram(Guess)) { return EWordStatus::Not_Isogram; }
@@ -42,9 +40,9 @@ EWordStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
 }
 
 /// <summary>Increments Bulls & Cows & increments guess count.</summary>
-/// <param name="Guess">FString Guess is passed AFTER validation to be checked against secret word.</param>  
+/// <param name="Guess">std::string Guess is passed AFTER validation to be checked against secret word.</param>  
 /// <returns>Returns BullCowCount data-type with updated values from last guess.</returns> 
-FBullCowCount FBullCowGame::SubmitGuess(FString Guess) {
+FBullCowCount FBullCowGame::SubmitGuess(std::string Guess) {
 	CurrentTry++;
 	FBullCowCount BullCowCount;
 	//Considered using Hashmap, but assuming words will be small we will continue to loop.
@@ -59,7 +57,7 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess) {
 	return BullCowCount;
 }
 
-bool FBullCowGame::IsIsorgram(FString Guess) const
+bool FBullCowGame::IsIsorgram(std::string Guess) const
 {
 	std::map<char, bool> knownLetters;
 	if (Guess.length() <= 1 && Guess.length() != Word.length()) { return false; }
@@ -71,7 +69,7 @@ bool FBullCowGame::IsIsorgram(FString Guess) const
 	return true;
 }
 
-bool FBullCowGame::IsAllLowerCase(FString Guess) const
+bool FBullCowGame::IsAllLowerCase(std::string Guess) const
 {
 	for (char letter : Guess) {if (isupper(letter)) { return false; }}
 	return true;
@@ -84,7 +82,7 @@ bool FBullCowGame::IsAllLowerCase(FString Guess) const
 // Convert Vector<Vector<String>> to Vector<String> (run once per new word size)
 // Randomly select List[r] and use as word at start of game. (once per game).
 
-bool FBullCowGame::ConvertDictionaryToIsogramDictionary(FString IFPath, FString OPath)
+bool FBullCowGame::ConvertDictionaryToIsogramDictionary(std::string IFPath, std::string OPath)
 {
 	std::ifstream ifs(IFPath);
 	std::ofstream outfile;
@@ -102,7 +100,7 @@ bool FBullCowGame::ConvertDictionaryToIsogramDictionary(FString IFPath, FString 
 	return true;
 }
 // TODO Doesn't work properly, sets are missing and not getting allot of words into the list, feels like a double initalized vector?
-std::vector<std::vector<std::string>> FBullCowGame::MakeVectorFromIsogramFile(FString IFilePath) {
+std::vector<std::vector<std::string>> FBullCowGame::MakeVectorFromIsogramFile(std::string IFilePath) {
 	//Open file, loop through, foreach vector entry check if first subset is the size of our word, if it IS append it, if it's NOT create new entry.
 	std::vector<std::vector<std::string>> WordLists;
 	std::ifstream ifs(IFilePath);
@@ -168,7 +166,7 @@ std::vector<std::string> FBullCowGame::GetWordList(int WordSize) {
 	return std::vector<std::string>{};
 
 }
-FString FBullCowGame::MakeWord(int WordSize)
+std::string FBullCowGame::MakeWord(int WordSize)
 {
 	std::vector<std::string> isograms = GetWordList(WordSize);
 	if (isograms.size() < 1) {
@@ -179,8 +177,9 @@ FString FBullCowGame::MakeWord(int WordSize)
 		return Word;
 	}
 
-	return FString();
+	return std::string();
 }
 // TODO add dictionary and randomly select a word. At game end, give option for new or same word.
 // TODO Maybe keep track of high scores? Could be nice to implement a basic DB for this (SQLite)
+// TODO
 
