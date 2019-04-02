@@ -46,8 +46,8 @@ FBullCowCount FBullCowGame::SubmitGuess(std::string Guess) {
 	CurrentTry++;
 	FBullCowCount BullCowCount;
 	//Considered using Hashmap, but assuming words will be small we will continue to loop.
-	for (int HWChar = 0; HWChar < Word.size(); HWChar++) {
-		for (int j = 0; j < Word.size(); j++) {
+	for (unsigned int HWChar = 0; HWChar < Word.size(); HWChar++) {
+		for (unsigned int j = 0; j < Word.size(); j++) {
 			if (Word[HWChar] == Guess[j]) {
 				if (HWChar == j) { BullCowCount.Bulls++; }
 				else{ BullCowCount.Cows++; }
@@ -114,8 +114,8 @@ std::vector<std::vector<std::string>> FBullCowGame::MakeVectorFromIsogramFile(st
 	{
 		lineSize = line.size();
 
-		for (int i = 0; i < WordLists.size(); i++) {//Outter
-			for (int j = 0; j < WordLists[i].size(); j++) {
+		for (unsigned int i = 0; i < WordLists.size(); i++) {//Outter
+			for (unsigned int j = 0; j < WordLists[i].size(); j++) {
 				int IsogramLineSize = atoi(WordLists[i][j].c_str());
 				if (IsogramLineSize == lineSize) {//Word length is the same as our vector's designated length set, therefor add to it!
 					match = true;
@@ -154,8 +154,8 @@ std::vector<std::vector<std::string>> FBullCowGame::MakeVectorFromIsogramFile(st
 std::vector<std::string> FBullCowGame::GetWordList(int WordSize) {
 	std::cout << IsogramLists.size();
 
-	for (int i = 0; i < IsogramLists.size(); i++) {//Outter
-		for (int j = 0; j < IsogramLists[i].size(); j++) {
+	for (unsigned int i = 0; i < IsogramLists.size(); i++) {//Outter
+		for (unsigned int j = 0; j < IsogramLists[i].size(); j++) {
 			int IsogramLineSize = atoi(IsogramLists[i][j].c_str());
 			if (IsogramLineSize == WordSize) {//Word length is the same as our vector's designated length set, therefor add to it!
 				return IsogramLists[i];
